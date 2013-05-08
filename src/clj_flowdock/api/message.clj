@@ -63,7 +63,7 @@
 
 (defn command? [message command]
   (and (message? message)
-    (.startsWith (content message) (str "$" command))))
+    (.startsWith (content message) (str "@Jarvis $" command))))
 
 (defn flow [message]
   (-> message
