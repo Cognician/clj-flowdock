@@ -14,6 +14,7 @@
   (let [flows (map #(% "id") (flow/list))
         url (str stream-url "?active=true&filter=" (s/join "," flows))
         response (client/get url {:as :stream :basic-auth api/basic-auth-token})]
+    (log/info "Streaming messages from:" url)
     (io/reader (:body response))))
 
 (defn- message-seq [reader]
