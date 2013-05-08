@@ -20,6 +20,12 @@
                                    :content-type :json
                                    :throw-exceptions false}))
 
+(defn http-put [path params]
+  (client/put (str api-url path) {:body (json/generate-string params)
+                                   :basic-auth basic-auth-token
+                                   :content-type :json
+                                   :throw-exceptions false}))
+
 (def organization (memoize #(-> (http-get "organizations") first m/id)))
 (def user-info (memoize #(http-get (str "users/" %))))
 (def message (memoize #(http-get (str "flows/" (organization) "/" %1 "/messages/" %2))))

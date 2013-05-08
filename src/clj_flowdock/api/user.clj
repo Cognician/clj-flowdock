@@ -1,9 +1,9 @@
 (ns clj-flowdock.api.user
   (:require [clj-flowdock.api :as api]
             [clj-flowdock.api.organization :as organization])
-  (:refer-clojure :exclude [get list]))
+  (:refer-clojure :exclude [get find]))
 
-(defn get-user [key value]
+(defn find [key value]
   (let [users (organization/get-users)]
     (first (filter #(.contains value (% key)) users))))
 
