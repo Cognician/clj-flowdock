@@ -2,7 +2,7 @@
   (:require [clj-flowdock.api :as api])
   (:refer-clojure :exclude [list get]))
 
-(def route "organizations")
+(def route "organizations/")
 
 (defn list []
   (api/http-get route))

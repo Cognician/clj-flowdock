@@ -22,9 +22,14 @@
 
 (defn http-put [path params]
   (client/put (str api-url path) {:body (json/generate-string params)
-                                   :basic-auth basic-auth-token
-                                   :content-type :json
-                                   :throw-exceptions false}))
+                                  :basic-auth basic-auth-token
+                                  :content-type :json
+                                  :throw-exceptions false}))
+
+(defn http-delete [path]
+  (client/delete (str api-url path) {:basic-auth basic-auth-token
+                                     :content-type :json
+                                     :throw-exceptions false}))
 
 (def organization (memoize #(-> (http-get "organizations") first m/id)))
 (def user-info (memoize #(http-get (str "users/" %))))
