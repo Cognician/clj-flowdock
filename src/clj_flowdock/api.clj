@@ -1,5 +1,6 @@
 (ns clj-flowdock.api
-  (:require [clj-http.client :as client]
+  (:require [clj-flowdock.util :as util]
+            [clj-http.client :as client]
             [cheshire.core :as json]))
 
 (def basic-auth-token (util/config-property "FLOWDOCK_TOKEN"))
