@@ -19,6 +19,3 @@
 
 (defn block-user [flow-id user-id]
   (api/http-put (str "flows/" flow-id "/users/" user-id) {:id user-id :disabled true}))
-
-(defn unblock-user [flow-id user-id]
-  (add-user flow-id user-id))
