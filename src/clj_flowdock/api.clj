@@ -2,8 +2,8 @@
   (:require [clj-http.client :as client]
             [cheshire.core :as json]))
 
-(def basic-auth-token "9920ebbdac4ddde778fe5173348ebdb6")
-(def api-url "https://api.flowdock.com/")
+(def basic-auth-token (util/config-property "FLOWDOCK_TOKEN"))
+(def api-url (or (util/config-property "FLOWDOCK_API_URL") "https://api.flowdock.com/"))
 
 (defn http-get
   ([path] (http-get path {}))
