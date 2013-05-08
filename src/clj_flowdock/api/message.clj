@@ -1,19 +1,24 @@
 (ns clj-flowdock.api.message
   (:require [clj-flowdock.api :as api]
             [clojure.string :as s])
-  (:refer-clojure :exclude [get list]))
+  (:refer-clojure :exclude [list]))
 
-(declare email nick parent users tags comment? message? command? parent-message-id flow create-message)
+(declare email nick command? parent-message-id flow create-message influx-tag?)
 
 (def user #(get % "user"))
 (def content #(get % "content"))
 (def event #(get % "event"))
 (def id #(get % "id"))
+(def parent #(get % "parent"))
+(def users #(get % "users"))
+(def tags #(get % "tags"))
+(def comment? #(= "comment" (event %)))
+(def message? #(= "message" (event %)))
 
 (defn list [flow-id]
   (api/http-get (str "flows/" flow-id "/messages")))
 
-(defn get [flow-id message-id]
+(defn get-message [flow-id message-id]
   (api/http-get (str "flows/" flow-id "/messages/" message-id)))
 
 (defn edit [flow-id message-id message]
@@ -41,22 +46,11 @@
     (let [message-content (str "@" (nick message) ", " content)]
       (send-message (flow message) (create-message message-content)))))
 
-(defn- influx-tag? [tag]
-  (.startsWith tag "influx"))
-
 (defn email [message]
   (get-in message ["user" "email"]))
 
 (defn nick [message]
   (get-in message ["user" "nick"]))
-
-(def parent #(get % "parent"))
-
-(def users #(get % "users"))
-(def tags #(get % "tags"))
-
-(def comment? #(= "comment" (event %)))
-(def message? #(= "message" (event %)))
 
 (defn parent-message-id [message]
   (when (comment? message)
@@ -82,3 +76,5 @@
    :content content
    :external_user_name "Jarvis"})
 
+(defn- influx-tag? [tag]
+  (.startsWith tag "influx"))

@@ -1,10 +1,10 @@
 (ns clj-flowdock.streaming
-  (:require [clj-flowdock.util :as u]
+  (:require [clj-flowdock.api :as api]
+            [clj-flowdock.util :as u]
             [clj-http.client :as client]
             [cheshire.core :as json]
             [clojure.string :as s]
             [clojure.java.io :as io]
-            [clj-flowdock.api :as api]
             [clojure.tools.logging :as log]))
 
 (def stream-url "http://stream.flowdock.com/flows")
