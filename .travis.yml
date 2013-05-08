@@ -5,3 +5,6 @@ jdk:
   - openjdk6
   - openjdk7
   - oraclejdk7
+
+notifications:
+  flowdock: 8448e81b1a2fe41be5da33e8eb086655
