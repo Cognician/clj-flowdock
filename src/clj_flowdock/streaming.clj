@@ -1,5 +1,6 @@
 (ns clj-flowdock.streaming
   (:require [clj-flowdock.api :as api]
+            [clj-flowdock.api.flow :as flow]
             [clj-flowdock.util :as u]
             [clj-http.client :as client]
             [cheshire.core :as json]
@@ -10,7 +11,7 @@
 (def stream-url "http://stream.flowdock.com/flows")
 
 (defn- open-message-stream []
-  (let [flows (api/flows)
+  (let [flows (map #(% "id") (flow/list))
         url (str stream-url "?active=true&filter=" (s/join "," flows))
         response (client/get url {:as :stream :basic-auth api/basic-auth-token})]
     (io/reader (:body response))))
