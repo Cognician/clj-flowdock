@@ -74,10 +74,9 @@
               (s/split #":"))]
     (str (nth vec 0) "/" (nth vec 1))))
 
-  (defn create-message [content]
-    {:event "message"
-     :content content
-     :external_user_name "Jarvis"})
+(defn create-message [content]
+  {:event "message"
+   :content content})
 
-  (defn- influx-tag? [tag]
-    (.startsWith tag "influx"))
+(defn- influx-tag? [tag]
+  (.startsWith tag "influx"))
