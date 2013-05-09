@@ -45,7 +45,7 @@
   ([reply-packet] (reply (:original reply-packet) (:response reply-packet)))
   ([message content]
     (let [message-content (str "@" (nick message) ", " content)]
-      (send-message (str (organization/id) "/" (flow-id message)) (create-message message-content)))))
+      (send-message (flow-id message) (create-message message-content)))))
 
 (defn email [message]
   (get-in message ["user" "email"]))
@@ -69,15 +69,15 @@
       (.startsWith (content message) (str "@Jarvis, " command)))))
 
 (defn flow-id [message]
-  (-> message
-    (get "flow")
-    (s/split #":")
-    second))
+  (let [vec (-> message
+              (get "flow")
+              (s/split #":"))]
+    (str (nth vec 0) "/" (nth vec 1))))
 
-(defn create-message [content]
-  {:event "message"
-   :content content
-   :external_user_name "Jarvis"})
+  (defn create-message [content]
+    {:event "message"
+     :content content
+     :external_user_name "Jarvis"})
 
-(defn- influx-tag? [tag]
-  (.startsWith tag "influx"))
+  (defn- influx-tag? [tag]
+    (.startsWith tag "influx"))

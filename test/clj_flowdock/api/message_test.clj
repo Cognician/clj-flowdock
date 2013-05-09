@@ -5,8 +5,8 @@
 (def sample-comment {"app" "chat", "edited" nil, "user" 29990, "flow" "rally-software:the-fellowship", "attachments" [], "sent" 1360870381666, "tags" [":user:35899" "influx:600555"], "content" {"title" "updated branch master with a commit", "text" "test comment"}, "event" "comment", "id" 603062, "uuid" "iAykQpTMoyErW6P7"})
 
 (deftest flow-id
-  (is (= "the-fellowship" (message/flow-id {"flow" "rally-software:the-fellowship"})))
-  (is (= "alm" (message/flow-id {"flow" "rally-software:alm"}))))
+  (is (= "rally-software/the-fellowship" (message/flow-id {"flow" "rally-software:the-fellowship"})))
+  (is (= "rally-software/alm" (message/flow-id {"flow" "rally-software:alm"}))))
 
 (deftest comment?
   (is (= true (message/comment? sample-comment)))
