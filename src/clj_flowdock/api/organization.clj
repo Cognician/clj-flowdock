@@ -7,5 +7,8 @@
 (defn list []
   (api/http-get route))
 
+(defn id []
+  ((first (list)) "id"))
+
 (defn get-users []
   ((first (list)) "users"))

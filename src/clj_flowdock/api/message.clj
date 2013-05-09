@@ -1,9 +1,10 @@
 (ns clj-flowdock.api.message
   (:require [clj-flowdock.api :as api]
+            [clj-flowdock.api.organization :as organization]
             [clojure.string :as s])
   (:refer-clojure :exclude [list]))
 
-(declare email nick command? parent-message-id flow create-message influx-tag?)
+(declare email nick command? parent-message-id flow-id create-message influx-tag?)
 
 (def user #(get % "user"))
 (def content #(get % "content"))
@@ -32,7 +33,7 @@
 
 (defn parent-message [child-message]
   (when-let [parent-id (parent-message-id child-message)]
-    (get (flow child-message) parent-id)))
+    (get (flow-id child-message) parent-id)))
 
 (defn send-private-message [user-id content]
   (api/http-post (str "private/" user-id "/messages") (create-message content)))
@@ -44,7 +45,7 @@
   ([reply-packet] (reply (:original reply-packet) (:response reply-packet)))
   ([message content]
     (let [message-content (str "@" (nick message) ", " content)]
-      (send-message (flow message) (create-message message-content)))))
+      (send-message (str (organization/id) "/" (flow-id message)) (create-message message-content)))))
 
 (defn email [message]
   (get-in message ["user" "email"]))
@@ -65,7 +66,7 @@
   (and (message? message)
     (.startsWith (content message) (str "@Jarvis $" command))))
 
-(defn flow [message]
+(defn flow-id [message]
   (-> message
     (get "flow")
     (s/split #":")
