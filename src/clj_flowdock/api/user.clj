@@ -5,9 +5,14 @@
 
 (def route "users/")
 
+(defn list []
+  (api/http-get route))
+
 (defn find [key value]
-  (let [users (organization/get-users)]
-    (first (filter #(.contains value (% key)) users))))
+   (first (filter #(.contains value (% key)) (list))))
 
 (defn get [id]
   (api/http-get (str route id)))
+
+(defn me []
+  (first (list)))

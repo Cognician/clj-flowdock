@@ -62,12 +62,6 @@
       (re-find #"(.+):(.+)")
       last)))
 
-(defn command? [message command]
-  (and (message? message)
-    (or
-      (.startsWith (content message) (str "@Jarvis " command))
-      (.startsWith (content message) (str "@Jarvis, " command)))))
-
 (defn flow-id [message]
   (let [vec (-> message
               (get "flow")
