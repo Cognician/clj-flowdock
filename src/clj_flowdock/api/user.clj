@@ -1,7 +1,7 @@
 (ns clj-flowdock.api.user
   (:require [clj-flowdock.api :as api]
             [clj-flowdock.api.organization :as organization])
-  (:refer-clojure :exclude [get find]))
+  (:refer-clojure :exclude [get find list]))
 
 (def route "users/")
 
