@@ -1,7 +1,8 @@
 (ns clj-flowdock.api.message
   (:require [clj-flowdock.api :as api]
             [clj-flowdock.api.organization :as organization]
-            [clojure.string :as s])
+            [clojure.string :as s]
+            [clojure.tools.logging :as log])
   (:refer-clojure :exclude [list]))
 
 (declare email nick command? parent-message-id flow-id create-message influx-tag?)
@@ -36,6 +37,8 @@
     (get (flow-id child-message) parent-id)))
 
 (defn send-private-message [user-id content]
+  (log/debug "USER:" user-id)
+  (log/debug "CONTENT:" content)
   (api/http-post (str "private/" user-id "/messages") (create-message content)))
 
 (defn send-private-messages [seq-of-users content]
