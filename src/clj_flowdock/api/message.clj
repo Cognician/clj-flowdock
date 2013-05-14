@@ -37,8 +37,6 @@
     (get (flow-id child-message) parent-id)))
 
 (defn send-private-message [user-id content]
-  (log/debug "USER:" user-id)
-  (log/debug "CONTENT:" content)
   (api/http-post (str "private/" user-id "/messages") (create-message content)))
 
 (defn send-private-messages [seq-of-users content]
