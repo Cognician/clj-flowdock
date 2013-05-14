@@ -40,7 +40,8 @@
   (api/http-post (str "private/" user-id "/messages") (create-message content)))
 
 (defn send-private-messages [seq-of-users content]
-  (map #(send-private-message % content) seq-of-users))
+  (doseq [user seq-of-users]
+    (send-private-message user content)))
 
 (defn chat [flow chat-string]
   (send-message flow (create-message chat-string)))
