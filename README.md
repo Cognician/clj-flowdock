@@ -3,6 +3,26 @@
 Clojure Library for interacting with flowdock
 The api is pretty straight forward and implements most of the public facing end points that flowdock uses.
 
+# Leiningen
+https://clojars.org/com.rallydev/clj-flowdock
+```clojure
+[com.rallydev/clj-flowdock "0.2.0"]
+```
+
+# Maven
+```xml
+<dependency>
+  <groupId>com.rallydev</groupId>
+  <artifactId>clj-flowdock</artifactId>
+  <version>0.2.0</version>
+</dependency>
+```
+
+# Environment Variables
+```bash
+export FLOWDOCK_TOKEN=<user flowdock token>
+```
+
 ## API
 
 ### Organizations
@@ -74,3 +94,15 @@ Allows you to create a flow in a given org with the specified name.
 (clj-flowdock.api.flow/update [flow-id attributes])
 ```
 Update the attributes (specified as a map) for the given flow.
+
+## Dependencies
+```clojure
+[org.clojure/clojure "1.5.0"]
+[clj-http "0.6.3"]
+[org.clojure/tools.logging "0.2.6"]
+```
+
+# License
+Copyright (c) Rally Software Development Corp. 2013  
+Distributed under the MIT License.
+
