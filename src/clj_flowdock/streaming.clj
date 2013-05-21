@@ -12,7 +12,7 @@
 
 (defn- open-message-stream []
   (let [flows (map #(% "id") (flow/list))
-        url (str stream-url "?active=true&filter=" (s/join "," flows))
+        url (str stream-url "?active=true&user=1&filter=" (s/join "," flows))
         response (client/get url {:as :stream :basic-auth api/basic-auth-token})]
     (log/info "Streaming messages from:" url)
     (io/reader (:body response))))
