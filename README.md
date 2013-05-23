@@ -98,8 +98,17 @@ Update the attributes (specified as a map) for the given flow.
 ## Dependencies
 ```clojure
 [org.clojure/clojure "1.5.0"]
-[clj-http "0.6.3"]
+[com.rallydev/clj-flowdock "0.2.1"]
+[com.rallydev/clj-jenkins "0.1.5"]
+[org.codehaus.groovy/groovy-all "2.1.0"]
+[clj-http "0.7.2"]
+[org.clojure/java.classpath "0.2.0"]
+[fs "1.3.2"]
 [org.clojure/tools.logging "0.2.6"]
+[ch.qos.logback/logback-classic "1.0.9"]
+[compojure "1.1.3"]
+[netty-ring-adapter "0.2.4"]
+[tentacles "0.2.4"]
 ```
 
 # License
