@@ -13,7 +13,7 @@
              (str api-url path)
              {:basic-auth basic-auth-token
               :query-params query-params
-              :as :json-string-keys})))))
+              :as :json-string-keys}))))
 
 (defn http-post [path params]
   (client/post (str api-url path) {:body (json/generate-string params)
