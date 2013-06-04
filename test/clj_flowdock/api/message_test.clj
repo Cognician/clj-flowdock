@@ -6,6 +6,7 @@
 
 ;{app chat, user 29983, attachments [], sent 1369155254035, tags [:unread:35899], content TEST MESSAGE, event message, id 192485891, to 35899, uuid e3woxd4Id8BJ5C4r}
 ;{app chat, user 29983, flow rally-software:jarvish, attachments [], sent 1369155660434, tags [:user:35899 :unread:35899], content @Jarvis, TEST MESSAGE, event message, id 53967, uuid -WJMThzC-3uaYn8i}
+;{user 35899, event flow-add, content {id rally-software:devellopers, name developers, organization Rally Software, open true}}
 
 
 (deftest flow-id
