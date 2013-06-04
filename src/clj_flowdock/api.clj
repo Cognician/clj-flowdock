@@ -9,11 +9,11 @@
 (defn http-get
   ([path] (http-get path {}))
   ([path query-params]
-    (json/parse-string (:body (client/get
-                                (str api-url path)
-                                {:basic-auth basic-auth-token
-                                 :query-params query-params
-                                 :as :json-string-keys})))))
+    (:body (client/get
+             (str api-url path)
+             {:basic-auth basic-auth-token
+              :query-params query-params
+              :as :json-string-keys})))))
 
 (defn http-post [path params]
   (client/post (str api-url path) {:body (json/generate-string params)
