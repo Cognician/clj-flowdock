@@ -6,30 +6,26 @@
             [cheshire.core :as json]
             [clojure.string :as s]
             [clojure.java.io :as io]
-            [clojure.tools.logging :as log]))
+            [clojure.tools.logging :as log])
+  (:refer-clojure :exclude [read]))
 
-(def stream-url "http://stream.flowdock.com/flows")
+(defprotocol Connection
+  (read [this] "Read from connection, returning a json map")
+  (close [this] "Close connection"))
 
-(defn- open-message-stream []
-  (let [flows (map #(% "id") (flow/list))
-        url (str stream-url "?active=true&user=1&filter=" (s/join "," flows))
-        response (client/get url {:as :stream :basic-auth api/basic-auth-token})]
-    (log/info "Streaming messages from:" url)
-    (io/reader (:body response))))
+(deftype FlowConnection [flow-id reader]
+  Connection
+  (read [this]
+    (json/parse-string (.readLine reader)))
+  (close [this]
+    (.close reader)))
 
-(defn- message-seq [reader]
-  (->> (line-seq reader)
-    (remove s/blank?)
-    (map #(json/parse-string %))))
+(defn- streaming-url [flow]
+  (str "http://stream.flowdock.com/flows/" flow "?active=true&user=1"))
 
-(defn- map-messages [f]
-  (with-open [message-reader (open-message-stream)]
-    (log/info "Message Stream Open")
-    (doseq [message (message-seq message-reader)]
-      (f message))))
+(defn open [flow]
+  (println (streaming-url flow))
+  (let [response (client/get (streaming-url flow) {:as :stream :basic-auth api/basic-auth-token})]
+    (log/info "Streaming messages from:" flow)
+    (FlowConnection. flow (io/reader (:body response)))))
 
-(defn messages []
-  (let [[s queue-insert] (u/pipe 10000)
-        message-thread (Thread. #(map-messages queue-insert) "FlowDock Streaming Thread")]
-    (.start message-thread)
-    s))
