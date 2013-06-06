@@ -1,11 +1,7 @@
 (ns clj-flowdock.streaming
   (:require [clj-flowdock.api :as api]
-            [clj-flowdock.api.flow :as flow]
-            [clj-flowdock.util :as u]
             [clj-http.client :as client]
             [cheshire.core :as json]
-            [clojure.string :as s]
-            [clojure.java.io :as io]
             [clojure.tools.logging :as log])
   (:refer-clojure :exclude [read]))
 
