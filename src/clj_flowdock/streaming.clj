@@ -20,12 +20,11 @@
   (close [this]
     (.close reader)))
 
-(defn- streaming-url [flow]
-  (str "http://stream.flowdock.com/flows/" flow "?active=true&user=1"))
+(defn- streaming-url [flow-id]
+  (str "http://stream.flowdock.com/flows/" flow-id "?active=true&user=1"))
 
-(defn open [flow]
-  (println (streaming-url flow))
-  (let [response (client/get (streaming-url flow) {:as :stream :basic-auth api/basic-auth-token})]
-    (log/info "Streaming messages from:" flow)
-    (FlowConnection. flow (io/reader (:body response)))))
+(defn open [flow-id]
+  (let [response (client/get (streaming-url flow-id) {:as :stream :basic-auth api/basic-auth-token})]
+    (log/info "Streaming messages from:" flow-id)
+    (FlowConnection. flow-id (io/reader (:body response)))))
 

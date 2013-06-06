@@ -1,5 +1,6 @@
 (ns clj-flowdock.api.flow
-  (:require [clj-flowdock.api :as api])
+  (:require [clj-flowdock.api :as api]
+            [clojure.string :as s])
   (:refer-clojure :exclude [get list find]))
 
 (def route "flows/")
@@ -27,3 +28,9 @@
 
 (defn update [flow-id attributes]
   (api/http-put (str route flow-id) attributes))
+
+(defn flow->flow-id [flow]
+  (let [vec (-> flow
+              (clojure.core/get "id")
+              (s/split #":"))]
+    (str (nth vec 0) "/" (nth vec 1))))
