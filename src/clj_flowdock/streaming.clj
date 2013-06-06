@@ -2,6 +2,7 @@
   (:require [clj-flowdock.api :as api]
             [clj-http.client :as client]
             [cheshire.core :as json]
+            [clojure.java.io :as io]
             [clojure.tools.logging :as log])
   (:refer-clojure :exclude [read]))
 
