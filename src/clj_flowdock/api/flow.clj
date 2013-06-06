@@ -33,7 +33,7 @@
   (api/http-put (str route flow-id) attributes))
 
 (defn add-myself [flow]
-  (add-user (flow->flow-id flow) (get (user/me) "id")))
+  (add-user (flow->flow-id flow) (clojure.core/get (user/me) "id")))
 
 (defn flow->flow-id [flow]
   (let [vec (-> flow
