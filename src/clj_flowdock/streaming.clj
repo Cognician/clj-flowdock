@@ -17,8 +17,16 @@
   (close [this]
     (.close reader)))
 
-(defn- streaming-url [flow-id]
-  (str "http://stream.flowdock.com/flows/" flow-id "?active=true&user=1"))
+(defn- flow-stream-url [flow-id]
+  (str "http://stream.flowdock.com/flows/" flow-id "?active=true"))
+
+(defn- user-stream-url []
+  (str "http://stream.flowdock.com/flows/?active=true&user=1"))
+
+(defn streaming-url [flow-id]
+  (if (s/blank? flow-id)
+    (user-stream-url)
+    (flow-stream-url flow-id)))
 
 (defn open [flow-id]
   (let [response (client/get (streaming-url flow-id) {:as :stream :basic-auth api/basic-auth-token})]
