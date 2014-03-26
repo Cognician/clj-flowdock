@@ -36,7 +36,4 @@
   (add-user (flow->flow-id flow) (clojure.core/get (user/me) "id")))
 
 (defn flow->flow-id [flow]
-  (let [vec (-> flow
-              (clojure.core/get "id")
-              (s/split #":"))]
-    (str (nth vec 0) "/" (nth vec 1))))
+  (str (clojure.core/get-in ["organization" "parameterized_name"]) (clojure.core/get "parameterized_name")))
