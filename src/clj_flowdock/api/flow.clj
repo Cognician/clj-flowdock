@@ -36,4 +36,4 @@
   (add-user (flow->flow-id flow) (clojure.core/get (user/me) "id")))
 
 (defn flow->flow-id [flow]
-  (str (clojure.core/get-in ["organization" "parameterized_name"]) (clojure.core/get "parameterized_name")))
+  (str (clojure.core/get-in flow ["organization" "parameterized_name"]) "/" (clojure.core/get flow "parameterized_name")))

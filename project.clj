@@ -1,4 +1,4 @@
-(defproject com.rallydev/clj-flowdock "1.2.0"
+(defproject com.rallydev/clj-flowdock "1.2.1"
   :description "Clojure library for interacting with flowdock"
   :url "https://github.com/RallySoftware/clj-flowdock"
   :license {:name "The MIT License (MIT)"
