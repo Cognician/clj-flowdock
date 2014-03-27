@@ -20,6 +20,9 @@
 (defn get [id]
   (api/http-get (str route id)))
 
+(defn get-by-id [id]
+  (api/http-get (str route "find?id=" id)))
+
 (defn add-user [flow-id user-id]
   (api/http-post (str route flow-id "/users") {:id user-id}))
 

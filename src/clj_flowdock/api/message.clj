@@ -1,6 +1,7 @@
 (ns clj-flowdock.api.message
   (:require [clj-flowdock.api :as api]
             [clj-flowdock.api.organization :as organization]
+            [clj-flowdock.api.flow :as flow]
             [clojure.string :as s]
             [clojure.tools.logging :as log])
   (:refer-clojure :exclude [list]))
@@ -43,8 +44,8 @@
   (doseq [user seq-of-users]
     (send-private-message user content)))
 
-(defn chat [flow chat-string]
-  (send-message flow (create-message chat-string)))
+(defn chat [flow-id chat-string]
+  (send-message flow-id (create-message chat-string)))
 
 (defn reply
   ([reply-packet] (reply (:original reply-packet) (:response reply-packet)))
@@ -68,10 +69,8 @@
       last)))
 
 (defn flow-id [message]
-  (let [vec (-> message
-              (get "flow")
-              (s/split #":"))]
-    (str (nth vec 0) "/" (nth vec 1))))
+  (let [flow (flow/find "id" (clojure.core/get message "flow"))]
+    (flow/flow->flow-id flow)))
 
 (defn create-message [content]
   {:event "message"
