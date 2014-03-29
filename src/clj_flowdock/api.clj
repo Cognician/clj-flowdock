@@ -1,13 +1,12 @@
 (ns clj-flowdock.api
-  (:require [clj-flowdock.util :as util]
-            [clj-http.client :as client]
+  (:require [clj-http.client :as client]
             [cheshire.core :as json]))
 
 (defn- config-property [name]
   (or (System/getenv name) (System/getProperty name)))
 
-(def basic-auth-token (util/config-property "FLOWDOCK_TOKEN"))
-(def api-url (or (util/config-property "FLOWDOCK_API_URL") "https://api.flowdock.com/"))
+(def basic-auth-token (config-property "FLOWDOCK_TOKEN"))
+(def api-url (or (config-property "FLOWDOCK_API_URL") "https://api.flowdock.com/"))
 
 (defn http-get
   ([path] (http-get path {}))
