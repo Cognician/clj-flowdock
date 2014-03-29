@@ -9,10 +9,10 @@
 (defn to-team-inbox [flow-token source from-address subject content
                      & {:keys [from-name reply-to project format tags link]}]
   (api/http-post (push-api-url flow-token "team_inbox")
-                 (cond-> {:source source
+                 (cond-> {:source       source
                           :from_address from-address
-                          :subject subject
-                          :content content}
+                          :subject      subject
+                          :content      content}
                          from-name (assoc :from_name from-name)
                          reply-to  (assoc :reply_to reply-to)
                          project   (assoc :project project)
@@ -24,7 +24,7 @@
 
 (defn to-chat [flow-token content external-user-name & {:keys [tags message-id]}]
   (api/http-post (push-api-url flow-token "chat")
-                 (cond-> {:content content
+                 (cond-> {:content            content
                           :external_user_name external-user-name}
                          tags       (assoc :tags tags)
                          message-id (assoc :message_id message-id))))
