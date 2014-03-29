@@ -50,8 +50,7 @@
 (defn reply
   ([reply-packet] (reply (:original reply-packet) (:response reply-packet)))
   ([message content]
-    (let [message-content (str "@" (nick message) ", " content)]
-      (send-message (flow-id message) (create-message message-content)))))
+    (send-message (flow-id message) (create-message content))))
 
 (defn email [message]
   (get-in message ["user" "email"]))
