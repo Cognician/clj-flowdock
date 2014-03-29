@@ -3,6 +3,9 @@
             [clj-http.client :as client]
             [cheshire.core :as json]))
 
+(defn- config-property [name]
+  (or (System/getenv name) (System/getProperty name)))
+
 (def basic-auth-token (util/config-property "FLOWDOCK_TOKEN"))
 (def api-url (or (util/config-property "FLOWDOCK_API_URL") "https://api.flowdock.com/"))
 
