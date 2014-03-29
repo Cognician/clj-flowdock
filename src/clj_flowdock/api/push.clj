@@ -22,9 +22,9 @@
 
 ;; API Reference https://flowdock.com/api/chat
 
-(defn to-chat [flow-token content external-user-name & {:keys [tags message-id]}]
+(defn to-chat [flow-token external-user-name content & {:keys [tags message-id]}]
   (api/http-post (push-api-url flow-token "chat")
-                 (cond-> {:content            content
-                          :external_user_name external-user-name}
+                 (cond-> {:external_user_name external-user-name
+                          :content            content}
                          tags       (assoc :tags tags)
                          message-id (assoc :message_id message-id))))
