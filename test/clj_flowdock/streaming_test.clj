@@ -10,7 +10,6 @@
 
 (deftest streaming
   (testing "that you can start streaming like this"
-    (streaming/connect "" #(println %) :timeout -1)
-    (Thread/sleep (* 60 1000)))
+    (streaming/connect "" #(println %) :timeout 1000))
 
   (testing "that it fails when no authentication token provided"))

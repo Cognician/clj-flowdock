@@ -39,14 +39,13 @@
 (def ^{:private true} never -1)
 
 (defn- with-defaults [opts]
-  (merge opts {:timeout never}))
+  (merge {:timeout never} opts))
 
 (defn connect [flow-id callback & args]
-  "Opens a streaming connection on <url>, invoking <callback> whenever a message arrives"
-  (println (streaming-url flow-id))
+  "Opens a streaming connection on <flow-id>, invoking <callback> whenever a message arrives"
   (let [opts (with-defaults (apply hash-map args))]
     (with-open [client (http/create-client)]
-      (let [resp (http/stream-seq client :get (streaming-url flow-id) :auth {:user basic-auth-token :password ""} :timeout (:timeout args))]
+      (let [resp (http/stream-seq client :get (streaming-url flow-id) :auth {:user basic-auth-token :password ""} :timeout (:timeout opts))]
         (doseq [s (http/string resp)]
           (apply callback [s]))))))
 
