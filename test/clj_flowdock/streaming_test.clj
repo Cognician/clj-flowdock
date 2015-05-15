@@ -10,6 +10,6 @@
 
 (deftest streaming
   (testing "that you can start streaming like this"
-    (streaming/connect "" #(println %) :timeout 1000))
+    (streaming/connect "" #(println %) :timeout 10000)) ; @todo: handle timeouts. Currently it hangs forever.
 
   (testing "that it fails when no authentication token provided"))

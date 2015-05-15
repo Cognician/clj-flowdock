@@ -42,7 +42,7 @@
   (merge {:timeout never} opts))
 
 (defn connect [flow-id callback & args]
-  "Opens a streaming connection on <flow-id>, invoking <callback> whenever a message arrives"
+  "Opens a streaming connection on <flow-id>, invoking <callback> whenever a message arrive. See <http://neotyk.github.io/http.async.client/docs.html#sec-2-3-7>"
   (let [opts (with-defaults (apply hash-map args))]
     (with-open [client (http/create-client)]
       (let [resp (http/stream-seq client :get (streaming-url flow-id) :auth {:user basic-auth-token :password ""} :timeout (:timeout opts))]
